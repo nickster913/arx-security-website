@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARX Security | Simple, affordable cybersecurity for small businesses</title>
+  <meta name="description" content="Cybersecurity doesn't need to be expensive or difficult. ARX Security helps small and medium businesses stay safe without breaking the bank.">
+  <link rel="icon" type="image/png" href="assets/arx-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0e1e2d;
+      --navy-2: #16293b;
+      --teal: #6fabab;
+      --teal-dark: #3d7c7b;   /* teal for text on white (readable contrast) */
+      --teal-tint: #e6f1f1;
+      --mist: #f5f8f8;
+      --ink: #1c2b38;
+      --muted: #566573;
+      --line: #dde6e8;
+      --white: #ffffff;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(14, 30, 45, 0.08);
+      --sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --serif: "Lora", Georgia, "Times New Roman", serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { line-height: 1.15; margin: 0 0 .5em; }
+    p { margin: 0 0 1em; }
+
+    .container { width: min(1140px, 100% - 40px); margin-inline: auto; }
+    .eyebrow {
+      font-size: .78rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--teal-dark); margin-bottom: .9rem;
+    }
+    .section { padding: 96px 0; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 700; color: var(--navy); }
+    .section-head p { font-family: var(--serif); font-size: 1.15rem; color: var(--muted); }
+    .center { text-align: center; margin-inline: auto; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--sans); font-weight: 600; font-size: 1rem;
+      padding: .9rem 1.5rem; border-radius: 999px; border: 2px solid transparent;
+      text-decoration: none; cursor: pointer; transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-teal { background: var(--teal); color: var(--navy); }
+    .btn-teal:hover { background: #82baba; }
+    .btn-outline { border-color: rgba(255,255,255,.35); color: var(--white); }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+    .btn-navy { background: var(--navy); color: var(--white); }
+    .btn-navy:hover { background: var(--navy-2); }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .brand img { height: 40px; width: auto; }
+    .wordmark { font-weight: 700; font-size: 1.2rem; letter-spacing: .02em; color: var(--navy); }
+    .wordmark span { font-weight: 500; color: var(--teal-dark); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--ink); }
+    .nav-links a:hover { color: var(--teal-dark); }
+    .nav-links .btn { padding: .6rem 1.2rem; font-size: .9rem; }
+    .nav-links .btn-navy { color: var(--white); }
+    .nav-links .btn-navy:hover { color: var(--white); }
+
+    /* Hero */
+    .hero { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+    .hero::after {
+      content: ""; position: absolute; right: -180px; top: -120px; width: 560px; height: 560px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(111,171,171,.18), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center;
+      padding: 96px 0 104px; position: relative; z-index: 1;
+    }
+    .hero .eyebrow { color: var(--teal); }
+    .hero h1 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 800; letter-spacing: -.01em; }
+    .hero h1 em { font-style: normal; color: var(--teal); }
+    .hero .lead { font-family: var(--serif); font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: #d4dee3; max-width: 34ch; margin-bottom: 2rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .hero-note { margin-top: 1.5rem; font-size: .9rem; color: #9fb1bb; }
+
+    .check-card {
+      background: var(--white); color: var(--ink); border-radius: 20px; padding: 32px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.25);
+    }
+    .check-card h2 { font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: .3rem; }
+    .check-card > p { font-family: var(--serif); color: var(--muted); margin-bottom: 1.4rem; }
+    .check-list { list-style: none; padding: 0; margin: 0 0 1.4rem; display: grid; gap: .75rem; }
+    .check-list li {
+      display: flex; gap: .9rem; align-items: flex-start;
+      background: var(--mist); border-radius: 10px; padding: .85rem 1rem;
+    }
+    .tick {
+      flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--teal);
+      display: grid; place-items: center; margin-top: 1px;
+    }
+    .tick svg { width: 14px; height: 14px; }
+    .check-list strong { display: block; color: var(--navy); font-size: .98rem; }
+    .check-list span { font-size: .88rem; color: var(--muted); }
+    .check-card .divider { height: 3px; width: 56px; background: var(--teal); border-radius: 3px; margin-bottom: 1rem; }
+    .check-card .foot { font-family: var(--serif); font-size: 1.05rem; color: var(--navy); margin: 0; }
+
+    /* Strip */
+    .strip { background: var(--teal-tint); padding: 22px 0; }
+    .strip ul {
+      list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center;
+      gap: .5rem 2.2rem; font-weight: 500; color: var(--navy); font-size: .98rem;
+    }
+    .strip li { display: flex; align-items: center; gap: .55rem; }
+    .strip li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--teal-dark); }
+
+    /* Promise */
+    .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .promise { padding: 8px 0; }
+    .promise .num {
+      font-weight: 700; font-size: .85rem; color: var(--teal-dark);
+      border: 2px solid var(--teal); border-radius: 999px; width: 40px; height: 40px;
+      display: grid; place-items: center; margin-bottom: 1rem;
+    }
+    .promise h3 { font-size: 1.2rem; color: var(--navy); }
+    .promise p { color: var(--muted); margin: 0; }
+
+    /* Services */
+    .services { background: var(--mist); }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service {
+      background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 30px 28px; transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+      display: flex; flex-direction: column;
+    }
+    .service:hover { box-shadow: var(--shadow); transform: translateY(-3px); border-color: #c7dada; }
+    .icon {
+      width: 52px; height: 52px; border-radius: 12px; background: var(--teal-tint);
+      display: grid; place-items: center; margin-bottom: 1.2rem;
+    }
+    .icon svg { width: 26px; height: 26px; stroke: var(--teal-dark); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .service h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: .55rem; }
+    .service p { color: var(--muted); font-size: .97rem; }
+    .service .plain {
+      margin-top: auto; font-family: var(--serif); font-style: italic; font-size: .95rem;
+      color: var(--teal-dark); border-top: 1px dashed var(--line); padding-top: .9rem; margin-bottom: 0;
+    }
+
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: step; }
+    .step { position: relative; padding: 32px 28px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--navy); color: var(--teal); font-weight: 700; margin-bottom: 1.1rem;
+    }
+    .step h3 { font-size: 1.15rem; color: var(--navy); }
+    .step p { color: var(--muted); margin: 0; }
+
+    /* Help banner */
+    .help { padding: 0 0 96px; }
+    .help-box {
+      background: var(--navy); color: var(--white); border-radius: 20px; padding: 40px 44px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .help-box h2 { font-size: 1.6rem; margin-bottom: .3rem; }
+    .help-box p { font-family: var(--serif); color: #c9d5db; margin: 0; max-width: 52ch; }
+
+    /* Contact */
+    .contact { background: var(--mist); }
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+    .contact-copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: var(--navy); }
+    .contact-copy .quote {
+      font-family: var(--serif); font-size: 1.25rem; color: var(--ink);
+      border-left: 4px solid var(--teal); padding-left: 1.1rem; margin: 1.4rem 0 2rem;
+    }
+    .contact-points { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+    .contact-points li { display: flex; gap: .8rem; align-items: center; color: var(--muted); }
+    .contact-points svg { width: 22px; height: 22px; stroke: var(--teal-dark); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .contact-points a { color: var(--navy); font-weight: 600; text-decoration: none; }
+    .contact-points a:hover { color: var(--teal-dark); }
+
+    form.card {
+      background: var(--white); border-radius: 20px; padding: 36px; box-shadow: var(--shadow); border: 1px solid var(--line);
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { margin-bottom: 18px; }
+    label { display: block; font-weight: 600; font-size: .88rem; color: var(--navy); margin-bottom: .4rem; }
+    label .opt { font-weight: 400; color: var(--muted); }
+    input, select, textarea {
+      width: 100%; font: inherit; font-size: .98rem; color: var(--ink);
+      background: var(--white); border: 1.5px solid var(--line); border-radius: 10px; padding: .8rem .95rem;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    textarea { min-height: 130px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px rgba(111,171,171,.2); }
+    .hp { position: absolute; left: -9999px; }
+    form .btn { width: 100%; justify-content: center; margin-top: 6px; }
+    .form-note { font-size: .83rem; color: var(--muted); margin: 14px 0 0; text-align: center; }
+    .form-status { display: none; margin-top: 16px; padding: 14px 16px; border-radius: 10px; font-weight: 500; }
+    .form-status.ok { display: block; background: var(--teal-tint); color: var(--navy); }
+    .form-status.err { display: block; background: #fdecec; color: #8a1f1f; }
+
+    /* Footer */
+    .site-footer { background: var(--navy); color: #a9bac3; padding: 48px 0 36px; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .site-footer .wordmark { color: var(--white); }
+    .site-footer .wordmark span { color: var(--teal); }
+    .site-footer .tagline { font-weight: 600; letter-spacing: .16em; font-size: .78rem; text-transform: uppercase; color: var(--teal); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); margin-top: 32px; padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .88rem; }
+    .footer-bottom .url { font-family: var(--serif); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .promise-grid, .steps { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .nav-links li:not(:last-child) { display: none; }
+      .section { padding: 72px 0; }
+      .hero-grid { padding: 64px 0 72px; }
+      .service-grid, .field-row { grid-template-columns: 1fr; }
+      .field-row { gap: 0; }
+      .check-card, form.card { padding: 26px 22px; }
+      .help-box { padding: 32px 26px; }
+      .wordmark { font-size: 1.05rem; }
+      .container { width: calc(100% - 32px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a class="brand" href="#top" aria-label="ARX Security home">
+        <img src="assets/arx-logo.png" alt="" width="40" height="44">
+        <span class="wordmark">ARX <span>SECURITY</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="btn btn-navy" href="#contact">Get in touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Protect what matters</p>
+          <h1>Cybersecurity doesn't need to be <em>expensive or difficult.</em></h1>
+          <p class="lead">Contact us to find out how to keep your business safe without breaking the bank.</p>
+          <div class="hero-actions">
+            <a class="btn btn-teal" href="#contact">Book a free chat</a>
+            <a class="btn btn-outline" href="#services">See what we do</a>
+          </div>
+          <p class="hero-note">Friendly, plain-English help for small and medium businesses.</p>
+        </div>
+
+        <aside class="check-card" aria-label="Security checklist">
+          <h2>How secure is your business?</h2>
+          <p>Most problems come down to four simple things.</p>
+          <ul class="check-list">
+            <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1e2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              <div><strong>Accounts</strong><span>Strong passwords and two-step sign-in</span></div></li>
+            <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1e2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              <div><strong>Devices</strong><span>Laptops and phones updated and protected</span></div></li>
+            <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1e2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              <div><strong>Access</strong><span>The right people see the right things</span></div></li>
+            <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#0e1e2d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+              <div><strong>Backups</strong><span>Your data is safe, even on a bad day</span></div></li>
+          </ul>
+          <div class="divider"></div>
+          <p class="foot">Start with a practical security review.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Strip -->
+    <div class="strip">
+      <div class="container">
+        <ul>
+          <li>Security Assessments</li>
+          <li>Threat Prevention</li>
+          <li>Incident Response</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Promise -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Why ARX</p>
+          <h2>Big-business protection, sized for your business.</h2>
+          <p>You don't need an IT department or a huge budget to be well protected. You just need someone in your corner.</p>
+        </div>
+        <div class="promise-grid">
+          <div class="promise">
+            <div class="num">01</div>
+            <h3>Plain English, no jargon</h3>
+            <p>We explain what matters and why, in words that make sense. No scare tactics, no tech-speak.</p>
+          </div>
+          <div class="promise">
+            <div class="num">02</div>
+            <h3>Clear, fair pricing</h3>
+            <p>You'll know the cost before we start. We focus on the fixes that give you the most protection for your money.</p>
+          </div>
+          <div class="promise">
+            <div class="num">03</div>
+            <h3>Practical, not perfect</h3>
+            <p>We work with the tools you already use and fit around how your team works, without slowing anyone down.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">What we do</p>
+          <h2>Simple services that keep you safe.</h2>
+          <p>Pick one, or let us suggest what makes sense for you after a quick chat.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M8.5 11h5"/></svg></div>
+            <h3>Dark web password check</h3>
+            <p>We check whether your team's emails and passwords have turned up in data leaks, and help you lock down anything exposed.</p>
+            <p class="plain">"Are our logins out there?"</p>
+          </article>
+
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/></svg></div>
+            <h3>Security health check</h3>
+            <p>A practical review of your accounts, devices, access and backups, with a short, clear list of what to fix first.</p>
+            <p class="plain">"Where do we stand?"</p>
+          </article>
+
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+            <h3>Email &amp; account protection</h3>
+            <p>Two-step sign-in, scam email filtering and the right settings on Microsoft 365 or Google Workspace, set up for you.</p>
+            <p class="plain">"Stop the dodgy emails."</p>
+          </article>
+
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+            <h3>Device &amp; Wi-Fi security</h3>
+            <p>We make sure laptops, phones and your office Wi-Fi are updated, protected and not leaving the door open.</p>
+            <p class="plain">"Is our setup safe?"</p>
+          </article>
+
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+            <h3>Backup &amp; recovery</h3>
+            <p>Reliable backups that are tested and kept safe from ransomware, so a bad day doesn't become a disaster.</p>
+            <p class="plain">"Could we recover?"</p>
+          </article>
+
+          <article class="service">
+            <div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2c.5-.1 1-.2 1.5-.2 2.5 0 4.5 2 4.5 4.5"/></svg></div>
+            <h3>Staff awareness training</h3>
+            <p>Short, friendly sessions that help your team spot scams and phishing. No lectures, just useful habits.</p>
+            <p class="plain">"Help my team spot scams."</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head center">
+          <p class="eyebrow">How it works</p>
+          <h2>Getting started is easy.</h2>
+          <p>Three simple steps. No long contracts, no pressure.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Have a free chat</h3>
+            <p>Tell us about your business and what's worrying you. We'll listen and answer your questions.</p>
+          </div>
+          <div class="step">
+            <h3>Get a practical review</h3>
+            <p>We look at what you have today and give you a clear, prioritised plan with costs up front.</p>
+          </div>
+          <div class="step">
+            <h3>Fix it and relax</h3>
+            <p>We sort out the important bits for you, and can keep an eye on things so you can focus on your business.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help banner -->
+    <section class="help">
+      <div class="container">
+        <div class="help-box">
+          <div>
+            <h2>Think something's gone wrong?</h2>
+            <p>Clicked a strange link, or an account acting oddly? Don't panic. Get in touch and we'll help you work out what to do next.</p>
+          </div>
+          <a class="btn btn-teal" href="#contact">Get help now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Contact us</p>
+          <h2>Let's keep your business safe.</h2>
+          <p class="quote">Cybersecurity doesn't need to be expensive or difficult. Contact us to find out how to keep your business safe without breaking the bank.</p>
+          <ul class="contact-points">
+            <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <a href="mailto:hello@arxsecurity.com">hello@arxsecurity.com</a></li>
+            <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              We usually reply within one working day.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/></svg>
+              No obligation, no hard sell.</li>
+          </ul>
+        </div>
+
+        <form class="card" id="contact-form" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="company">Business name</label>
+              <input id="company" name="company" type="text" autocomplete="organization" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="opt">(optional)</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="topic">What can we help with?</label>
+            <select id="topic" name="topic">
+              <option>Not sure yet, just want a chat</option>
+              <option>Dark web password check</option>
+              <option>Security health check</option>
+              <option>Email &amp; account protection</option>
+              <option>Device &amp; Wi-Fi security</option>
+              <option>Backup &amp; recovery</option>
+              <option>Staff awareness training</option>
+              <option>I think something's gone wrong</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Tell us a little about your business <span class="opt">(optional)</span></label>
+            <textarea id="message" name="message" placeholder="e.g. We're a team of 12, we use Microsoft 365 and we're not sure our backups work."></textarea>
+          </div>
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-navy" type="submit">Send message</button>
+          <p class="form-note">We'll only use your details to reply to you.</p>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <a class="brand" href="#top" aria-label="ARX Security home">
+          <img src="assets/arx-logo-light.png" alt="" width="40" height="44">
+          <span class="wordmark">ARX <span>SECURITY</span></span>
+        </a>
+        <span class="tagline">Protect what matters</span>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> ARX Security. Cybersecurity for small and medium businesses.</span>
+        <span class="url">www.arxsecurity.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // To receive form messages directly, paste a form endpoint here
+    // (e.g. "https://formspree.io/f/xxxxxxx"). If left empty, the form
+    // opens the visitor's email app with the message filled in.
+    const FORM_ENDPOINT = "";
+    const CONTACT_EMAIL = "hello@arxsecurity.com";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    function showStatus(type, text) {
+      status.className = "form-status " + type;
+      status.textContent = text;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (data.get("_gotcha")) return; // spam bot
+
+      const missing = ["name", "company", "email"].filter((k) => !String(data.get(k) || "").trim());
+      const email = String(data.get("email") || "");
+      if (missing.length) {
+        showStatus("err", "Please fill in your name, business name and email.");
+        form.querySelector("#" + missing[0]).focus();
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showStatus("err", "That email address doesn't look quite right.");
+        form.querySelector("#email").focus();
+        return;
+      }
+
+      if (!FORM_ENDPOINT) {
+        const body = [
+          "Name: " + data.get("name"),
+          "Business: " + data.get("company"),
+          "Email: " + email,
+          "Phone: " + (data.get("phone") || "-"),
+          "Topic: " + data.get("topic"),
+          "",
+          data.get("message") || ""
+        ].join("\n");
+        const subject = "Website enquiry: " + data.get("topic");
+        window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        showStatus("ok", "Your email app should open with your message ready to send.");
+        return;
+      }
+
+      const button = form.querySelector("button[type=submit]");
+      button.disabled = true;
+      button.textContent = "Sending...";
+      try {
+        const res = await fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("Request failed");
+        form.reset();
+        showStatus("ok", "Thanks! We've got your message and will be in touch soon.");
+      } catch (err) {
+        showStatus("err", "Sorry, something went wrong. Please email us at " + CONTACT_EMAIL + ".");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Send message";
+      }
+    });
+  </script>
+</body>
+</html>
